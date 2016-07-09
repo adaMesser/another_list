@@ -1,0 +1,58 @@
+<?php
+/**
+ *
+ */
+
+/**
+ * Implements hook_list_of_items_menu().
+ *
+ * @param $route
+ * @param $item
+ * @return array
+ */
+function another_list_list_of_items_menu($route, $item) {
+  $subitems = array();
+  if ($route == 'catalogue') {
+    $subitems['shop2'] = [
+      'title' => 'Shop 2',
+      'description' => 'Каталог магазинов',
+      'page callback' => 'another_list_catalogue_shop_page',
+      'page arguments' => array(1),
+      'access callback' => TRUE,
+      'menu_name' => 'menu-test',
+      'expanded' => TRUE,
+    ];
+    $subitems['shop3'] = [
+      'title' => 'Shop 3',
+      'description' => 'Каталог магазинов #3',
+      'page callback' => 'another_list_catalogue_shop_page',
+      'page arguments' => array(1),
+      'access callback' => TRUE,
+      'menu_name' => 'menu-test',
+      'expanded' => TRUE,
+    ];
+  }
+  return $subitems;
+}
+
+/**
+ * Implements hook_list_of_items_menu_alter().
+ * Change shop 1 title to 'new Shop 1'
+ *
+ * @param $subitems
+ * @param $route
+ * @param $item
+ */
+function another_list_list_of_items_menu_alter(&$subitems, $route, $item) {
+  if ($route == 'catalogue') {
+    $subitems['shop1']['title'] = 'new Shop 1';
+  }
+}
+
+/**
+ * @param $item
+ * @return null|string
+ */
+function another_list_catalogue_shop_page($item) {
+  return t('shop - '.$item);
+}
